@@ -34,19 +34,29 @@ console.log(`Apples Total Price: ${fruitCount.apple * fruitPrice.apple}`)
 console.log(`Bananas Total Price: ${fruitCount.banana * fruitPrice.banana}`)
 
 
-const btn = document.querySelector(".btn")
+const btns = document.querySelectorAll(".btn")
 
-btn.addEventListener('click', (e) => {
-    let appleObj = { name: e.target.innerText }
-    fruits = fruits.concat(appleObj)
-    console.log(e.target.innerText)
+btns.forEach((btn, index) => {
+    btn.addEventListener('click', (e) => {
+        let innerText = e.target.innerText
+        let obj = { name: innerText }
+        fruits = fruits.concat(obj)
+        console.log(innerText)
+    
+        const fruitCount = fruits.reduce((accumulator, currentValue) => {
+            accumulator[currentValue.name] = (accumulator[currentValue.name] || 0) + 1
+            return accumulator
+        }, {})
+    
+        console.log(fruits)
+        console.log(fruitCount)
 
-    const fruitCount = fruits.reduce((accumulator, currentValue) => {
-        accumulator[currentValue.name] = (accumulator[currentValue.name] || 0) + 1
-        return accumulator
-    }, {})
+        console.log("Current Index: " + index)
 
-    console.log(fruits)
-    console.log(fruitCount)
-    console.log(`Apples Total Price: ${fruitCount.apple * fruitPrice.apple}`)
+        const keys = Object.keys(fruitPrice)
+        console.log("Current Fruit Name: " + keys[index])
+
+        console.log(`Apples Total Price: ${fruitCount.apple * fruitPrice.apple}`)
+        console.log(`Banana Total Price: ${fruitCount.banana * fruitPrice.banana}`)
+    })
 })
